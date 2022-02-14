@@ -1,8 +1,8 @@
 <template>
   <div>
-    <label for="">Film</label>
-    <input type="text" v-model="searchedMovie" />
-    <button @click="searchMovie()">Cerca</button>
+    <Header @searchMovie="searchMovie" />
+    <!-- <input type="text" v-model="searchedMovie" placeholder="Cerca qui..." /> -->
+    <!-- <button @click="searchMovie()">Cerca</button> -->
     <h1>FILM</h1>
     <div v-for="movie in movies" :key="movie.id">
       <h4>{{ movie.title }}</h4>
@@ -53,8 +53,13 @@
 <script>
 import axios from "axios";
 
+import Header from "./components/Header.vue";
+
 export default {
   name: "App",
+  components: {
+    Header,
+  },
   data() {
     return {
       uriMovie: "https://api.themoviedb.org/3/search/movie?",
@@ -87,9 +92,10 @@ export default {
           this.series = res.data.results;
         });
     },
-    searchMovie() {
-      if (!this.searchedMovie) return;
-      this.query = this.searchedMovie;
+    searchMovie(i) {
+      console.log(i);
+      if (!i) return;
+      this.query = i;
       this.getMovies();
       this.getSerie();
     },
