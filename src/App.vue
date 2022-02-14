@@ -1,5 +1,9 @@
 <template>
-  <div></div>
+  <div>
+    <label for="">Film</label>
+    <input type="text" v-model="searchedMovie" />
+    <button @click="searchMovie()">Cerca</button>
+  </div>
 </template>
 
 <script>
@@ -9,10 +13,12 @@ export default {
   name: "App",
   data() {
     return {
-      movies: [],
       uri: "https://api.themoviedb.org/3/search/movie?",
       api_key: "031f0a4766b91b5ae8a907cba992f2e0",
-      query: "bon",
+      query: "",
+
+      movies: [],
+      searchedMovie: "",
     };
   },
   methods: {
@@ -24,9 +30,10 @@ export default {
           console.log(this.movies);
         });
     },
-  },
-  mounted() {
-    this.getMovies();
+    searchMovie() {
+      this.query = this.searchedMovie;
+      this.getMovies();
+    },
   },
 };
 </script>
