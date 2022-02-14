@@ -6,7 +6,36 @@
     <div v-for="movie in movies" :key="movie.id">
       <h4>{{ movie.title }}</h4>
       <h5>{{ movie.original_title }}</h5>
-      <p>{{ movie.original_language }}</p>
+      <div>
+        <p
+          v-if="
+            movie.original_language === 'it' || movie.original_language === 'en'
+          "
+        >
+          <img
+            :alt="movie.original_language"
+            :src="`./assets/img/${movie.original_language}.png`"
+          />
+        </p>
+        <p v-else>
+          {{ movie.original_language }}
+        </p>
+      </div>
+
+      <!-- <p
+        v-if="
+          (movie.original_language !== 'en') &
+          (movie.original_language !== 'it')
+        "
+      >
+        {{ movie.language }}
+      </p>
+      <p v-else-if="movie.original_language === 'it'">
+        <img src="./assets/img/it.png" alt="" />
+      </p>
+      <p v-else-if="movie.original_language === 'en'">
+        <img src="./assets/img/en.png" alt="" />
+      </p> -->
       <p>{{ movie.vote_average }}</p>
       <hr />
     </div>
