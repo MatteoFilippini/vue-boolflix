@@ -30,32 +30,35 @@ export default {
     };
   },
   methods: {
-    getMovies() {
-      axios
-        .get(
-          `${this.uriMovie}api_key=${this.api_key}&query=${this.query}&language=${this.lenguage}`
-        )
-        .then((res) => {
-          this.movies = res.data.results;
-        });
-    },
-    getSerie() {
-      axios
-        .get(
-          `${this.uriSerie}api_key=${this.api_key}&query=${this.query}&language=${this.lenguage}`
-        )
-        .then((res) => {
-          this.series = res.data.results;
-        });
-    },
-    searchMovie(i) {
-      if (!i) {
+    search(item) {
+      if (!item) {
         this.movies = [];
+        this.series = [];
         return;
       }
-      this.query = i;
-      this.getMovies();
-      this.getSerie();
+
+      const { key, language } = this.api;
+      const config = {
+        params: {
+          language,
+          query: item,
+          api_key: key,
+        },
+      };
+
+      this.fetchApi("search/movie", "movie", config);
+      this.fetchApi("search/tv", "series", config);
+    },
+
+    fetchApi(endpoint, target, config) {
+      axios
+        .get(`${this.api.uri}/${endpoint}`, config)
+        .then((res) => {
+          this[target] = res.data.results;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
 };
