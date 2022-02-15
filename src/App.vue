@@ -1,7 +1,7 @@
 <template>
   <div>
     <Header @search="search" />
-    <Main :movies="movies" />
+    <Main :movies="movies" :series="series" />
   </div>
 </template>
 

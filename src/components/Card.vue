@@ -1,35 +1,44 @@
 <template>
   <div>
-    <h4>{{ movie.title }}</h4>
-    <h5>{{ movie.original_title }}</h5>
+    <h4>{{ item.title || item.name }}</h4>
+    <h5>{{ item.original_title || item.original_name }}</h5>
     <div>
       <p v-if="hasFlag">
-        <img :alt="movie.original_language" :src="imageSrc" />
+        <img :alt="item.original_language" :src="imageSrc" />
       </p>
       <p v-else>
-        {{ movie.original_language }}
+        {{ item.original_language }}
       </p>
     </div>
-    <p>{{ movie.vote_average }}</p>
+    <p>{{ stars }}</p>
+    <p><img :alt="item.original_title" :src="bgImage" /></p>
     <hr />
   </div>
 </template>
 
+
 <script>
 export default {
   name: "Card",
-  props: ["movie"],
+  props: ["item"],
   data() {
     return {
       flags: ["it", "en"],
+      uri: "https://image.tmdb.org/t/p/w342",
     };
   },
   computed: {
     imageSrc() {
-      return require(`../assets/img/${this.movie.original_language}.png`);
+      return require(`../assets/img/${this.item.original_language}.png`);
     },
     hasFlag() {
-      return this.flags.includes(this.movie.original_language);
+      return this.flags.includes(this.item.original_language);
+    },
+    bgImage() {
+      return `${this.uri}${this.item.poster_path}`;
+    },
+    stars() {
+      return Math.round(this.item.vote_average / 2);
     },
   },
 };
