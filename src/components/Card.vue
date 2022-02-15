@@ -10,7 +10,21 @@
         {{ item.original_language }}
       </p>
     </div>
-    <p>{{ stars }}</p>
+    <!-- STARS -->
+    <div>
+      {{ stars }}
+      <p>
+        <i v-for="(star, i) in stars" :key="i" class="fa-solid fa-star"></i>
+      </p>
+      <p>
+        <i
+          v-for="(notStar, j) in notStars"
+          :key="j"
+          class="fa-solid fa-star fa-2x"
+        ></i>
+      </p>
+    </div>
+
     <p><img :alt="item.original_title" :src="bgImage" /></p>
     <hr />
   </div>
@@ -35,10 +49,17 @@ export default {
       return this.flags.includes(this.item.original_language);
     },
     bgImage() {
-      return `${this.uri}${this.item.poster_path}`;
+      if (this.item.poster_path === null) {
+        return require(`../assets/img/notImage.png`);
+      } else {
+        return `${this.uri}${this.item.poster_path}`;
+      }
     },
     stars() {
       return Math.round(this.item.vote_average / 2);
+    },
+    notStars() {
+      return 5 - this.stars;
     },
   },
 };
