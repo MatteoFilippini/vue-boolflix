@@ -1,7 +1,7 @@
 <template>
   <div>
     <Header @search="search" />
-    <Main :movies="movies" :series="series" />
+    <Main :movies="movies" />
   </div>
 </template>
 
@@ -46,7 +46,7 @@ export default {
         },
       };
 
-      this.fetchApi("search/movie", "movie", config);
+      this.fetchApi("search/movie", "movies", config);
       this.fetchApi("search/tv", "series", config);
     },
 
