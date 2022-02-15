@@ -1,7 +1,12 @@
 <template>
   <header>
-    <input type="text" v-model="searchedMovie" placeholder="Cerca qui..." />
-    <button @click="$emit('searchMovie', searchedMovie)">Cerca</button>
+    <input
+      type="text"
+      v-model.trim="searchedItem"
+      placeholder="Cerca qui..."
+      @keyup.enter="search"
+    />
+    <button @click="search">Cerca</button>
   </header>
 </template>
 
@@ -10,8 +15,13 @@ export default {
   name: "Header",
   data() {
     return {
-      searchedMovie: "",
+      searchedItem: "",
     };
+  },
+  methods: {
+    search() {
+      this.$emit("search", this.searchedItem);
+    },
   },
 };
 </script>

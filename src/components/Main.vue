@@ -1,7 +1,9 @@
 <template>
   <div>
     <main>
+      <h3 class="text-muted text-center">Cerca un titolo</h3>
       <h1>FILM</h1>
+
       <div v-for="movie in movies" :key="movie.id">
         <h4>{{ movie.title }}</h4>
         <h5>{{ movie.original_title }}</h5>
@@ -57,7 +59,6 @@
 <script>
 export default {
   name: "Main",
-
   props: ["movies", "series"],
 };
 </script>

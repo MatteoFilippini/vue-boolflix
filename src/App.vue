@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Header @searchMovie="searchMovie" />
+    <Header @search="search" />
     <Main :movies="movies" :series="series" />
   </div>
 </template>
@@ -19,15 +19,14 @@ export default {
   },
   data() {
     return {
-      uriMovie: "https://api.themoviedb.org/3/search/movie?",
-      uriSerie: "https://api.themoviedb.org/3/search/tv?",
-      api_key: "031f0a4766b91b5ae8a907cba992f2e0",
-      query: "",
-      language: "it-IT",
+      api: {
+        key: "031f0a4766b91b5ae8a907cba992f2e0",
+        language: "it-IT",
+        uri: "https://api.themoviedb.org/3",
+      },
 
       movies: [],
       series: [],
-      searchedMovie: "",
     };
   },
   methods: {
@@ -50,7 +49,10 @@ export default {
         });
     },
     searchMovie(i) {
-      if (!i) return;
+      if (!i) {
+        this.movies = [];
+        return;
+      }
       this.query = i;
       this.getMovies();
       this.getSerie();
