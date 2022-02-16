@@ -1,6 +1,6 @@
 <template>
   <main>
-    <h2 v-if="!movies.length" id="title">Cerca un film o una serie</h2>
+    <h2 v-if="!movies.length">Cerca un film o una serie</h2>
     <Section
       id="movies"
       title="Film"
@@ -31,9 +31,11 @@ export default {
 main {
   height: 90vh;
   overflow: auto;
-  #title {
+  background-color: black;
+  h2 {
     text-align: center;
     line-height: 90vh;
+    color: rgb(199, 199, 199);
   }
 }
 </style>

@@ -67,7 +67,4 @@ export default {
 <style lang="scss">
 @import "bootstrap";
 @import "./assets/scss/style.scss";
-#all {
-  background-color: black;
-}
 </style>

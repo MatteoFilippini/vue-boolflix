@@ -1,10 +1,10 @@
 <template>
   <div class="col-3">
     <div class="card">
-      <div class="card-image" @click="show = !show" :class="{ dnone: !show }">
+      <div class="card-image">
         <img :alt="item.original_title" :src="bgImage" class="img-fluid" />
       </div>
-      <div class="card-desc m-3" v-if="!show" @click="show = !show">
+      <div class="card-desc scale-in-center">
         <!-- TITOLO -->
         <div class="card-title text-center p-2">
           <h4>{{ item.title || item.name }}</h4>
@@ -68,7 +68,6 @@ export default {
     return {
       flags: ["it", "en"],
       uri: "https://image.tmdb.org/t/p/w342",
-      show: true,
     };
   },
   computed: {
@@ -96,9 +95,62 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.dnone {
-  display: none;
+// animazione immagine
+.scale-in-center {
+  -webkit-animation: scale-in-center 1s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+    both;
+  animation: scale-in-center 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
+@-webkit-keyframes scale-in-center {
+  0% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    opacity: 2;
+  }
+}
+@keyframes scale-in-center {
+  0% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+    opacity: 2;
+  }
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    opacity: 2;
+  }
+}
+
+.card:hover {
+  .card-image {
+    display: none;
+  }
+  .card-desc {
+    display: block;
+  }
+}
+
+// SCROLLBAR
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 5px;
+  box-shadow: inset 0 0 10px gray;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background-color: lightgray;
+}
+
+// CARD
 .card {
   height: 500px;
   width: 300px;
@@ -113,9 +165,14 @@ export default {
       height: 500px;
     }
   }
-  .card-desc {
-    height: 100%;
+  .card-desc:hover {
     overflow: auto;
+  }
+  .card-desc {
+    display: none;
+    height: 100%;
+    overflow: hidden;
+    padding: 20px 0 20px 20px;
     .card-title {
       min-height: 100px;
     }
