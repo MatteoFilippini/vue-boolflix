@@ -1,17 +1,19 @@
 <template>
   <main>
-    <h2 v-if="!movies.length">Cerca un film o una serie</h2>
+    <h2 v-if="!movies.length">Cerca un film o una serie tv</h2>
     <Section
       id="movies"
       title="Film"
       :items="movies"
       :searchedItem="searchedItem"
+      @act="actMovie"
     />
     <Section
       id="series"
       title="Serie TV"
       :items="series"
       :searchedItem="searchedItem"
+      @act="actMovie"
     />
   </main>
 </template>
@@ -23,6 +25,11 @@ export default {
   props: ["movies", "series", "searchedItem"],
   components: {
     Section,
+  },
+  methods: {
+    actMovie() {
+      this.$emit("act", this.act);
+    },
   },
 };
 </script>

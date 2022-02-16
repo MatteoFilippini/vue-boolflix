@@ -6,7 +6,12 @@
     </h2>
     <div class="container">
       <div class="row">
-        <Card v-for="item in items" :key="item.id" :item="item" />
+        <Card
+          v-for="item in items"
+          :key="item.id"
+          :item="item"
+          @act="actMovie"
+        />
       </div>
     </div>
   </section>
@@ -20,6 +25,11 @@ export default {
     Card,
   },
   props: ["id", "title", "items", "searchedItem"],
+  methods: {
+    actMovie() {
+      this.$emit("act", this.act);
+    },
+  },
 };
 </script>
 

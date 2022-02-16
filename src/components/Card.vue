@@ -53,6 +53,8 @@
               {{ item.overview }}
             </p>
           </div>
+          <!-- ATTORI {{ item.id }}-->
+          <p>{{ item.id }}</p>
         </div>
       </div>
     </div>
@@ -70,13 +72,22 @@ export default {
       uri: "https://image.tmdb.org/t/p/w342",
     };
   },
+  mounted() {
+    this.$emit("act", this.item.id);
+  },
   computed: {
+    a() {
+      return this.$emit("act", this.item.id);
+    },
+    // bandiera
     imageSrc() {
       return require(`../assets/img/${this.item.original_language}.png`);
     },
+    // presenza o meno delle bandiera
     hasFlag() {
       return this.flags.includes(this.item.original_language);
     },
+    // immagine in copertina
     bgImage() {
       if (this.item.poster_path) {
         return `${this.uri}${this.item.poster_path}`;
@@ -84,9 +95,11 @@ export default {
         return require(`../assets/img/notImage.png`);
       }
     },
+    // stelle effettive
     stars() {
       return Math.round(this.item.vote_average / 2);
     },
+    // stelle mancanti
     notStars() {
       return 5 - this.stars;
     },
@@ -137,12 +150,12 @@ export default {
 
 // SCROLLBAR
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 7px;
 }
 
 ::-webkit-scrollbar-track {
   border-radius: 5px;
-  box-shadow: inset 0 0 10px gray;
+  box-shadow: inset 0 0 7px rgb(20, 21, 24);
 }
 
 ::-webkit-scrollbar-thumb {
