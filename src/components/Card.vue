@@ -12,6 +12,7 @@
             {{ item.original_title || item.original_name }}
           </h6>
         </div>
+        <!-- INFO -->
         <div class="card-info">
           <!-- BANDIERA -->
           <div>

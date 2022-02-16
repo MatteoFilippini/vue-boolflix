@@ -23,9 +23,9 @@ export default {
         key: "031f0a4766b91b5ae8a907cba992f2e0",
         language: "it-IT",
         uri: "https://api.themoviedb.org/3",
-        searchedItem: "",
       },
 
+      searchedItem: "",
       movies: [],
       series: [],
     };
