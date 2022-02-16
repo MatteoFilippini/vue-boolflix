@@ -53,8 +53,15 @@
               {{ item.overview }}
             </p>
           </div>
-          <!-- ATTORI {{ item.id }}-->
-          <p>{{ item.id }}</p>
+          <!-- CAST-->
+          <div class="card-cast">
+            <h6>Cast:</h6>
+            <div>
+              <p v-for="cas in cast" :key="cas.id" class="m-0">
+                -{{ cas.name }}
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -63,6 +70,8 @@
 
 
 <script>
+import axios from "axios";
+
 export default {
   name: "Card",
   props: ["item"],
@@ -70,15 +79,23 @@ export default {
     return {
       flags: ["it", "en"],
       uri: "https://image.tmdb.org/t/p/w342",
+      cast: [],
     };
   },
   mounted() {
-    this.$emit("act", this.item.id);
+    let pippo = this.item.id;
+    axios
+      .get(
+        `https://api.themoviedb.org/3/movie/${pippo}/credits?api_key=031f0a4766b91b5ae8a907cba992f2e0`
+      )
+      .then((res) => {
+        this.cast = res.data.cast;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   },
   computed: {
-    a() {
-      return this.$emit("act", this.item.id);
-    },
     // bandiera
     imageSrc() {
       return require(`../assets/img/${this.item.original_language}.png`);

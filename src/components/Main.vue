@@ -6,7 +6,6 @@
       title="Film"
       :items="movies"
       :searchedItem="searchedItem"
-      @act="actMovie"
     />
     <Section
       id="series"
@@ -25,11 +24,6 @@ export default {
   props: ["movies", "series", "searchedItem"],
   components: {
     Section,
-  },
-  methods: {
-    actMovie() {
-      this.$emit("act", this.act);
-    },
   },
 };
 </script>

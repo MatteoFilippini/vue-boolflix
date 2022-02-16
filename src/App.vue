@@ -34,18 +34,11 @@ export default {
 
       searchedItem: "",
       movies: [],
-      cast: [],
       series: [],
-
-      movieid: "",
     };
   },
   computed: {},
   methods: {
-    // prendo l'id
-    actMovie(i) {
-      this.movieid = i;
-    },
     search(item) {
       this.searchedItem = item;
       if (!item) {
@@ -63,7 +56,6 @@ export default {
 
       this.fetchApi("search/movie", "movies", config);
       this.fetchApi("search/tv", "series", config);
-      this.fetchApi2(this.movieid, this.api.key);
     },
 
     fetchApi(endpoint, target, config) {
@@ -71,23 +63,11 @@ export default {
         .get(`${this.api.uri}/${endpoint}`, config)
         .then((res) => {
           this[target] = res.data.results;
-          console.log(this.attori);
         })
         .catch((err) => {
           console.log(err);
         });
     },
-    fetchApi2(id, key) {
-      axios
-        .get(`https://api.themoviedb.org/3/movie/${id}/credits?api_key=${key}`)
-        .then((res) => {
-          this.cast = res.data.cast;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-    // api per stampare
   },
 };
 </script>
