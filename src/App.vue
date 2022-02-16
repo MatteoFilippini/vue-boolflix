@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div id="all">
     <Header @search="search" />
-    <Main :movies="movies" :series="series" />
+    <Main :movies="movies" :series="series" :searchedItem="searchedItem" />
   </div>
 </template>
 
@@ -23,6 +23,7 @@ export default {
         key: "031f0a4766b91b5ae8a907cba992f2e0",
         language: "it-IT",
         uri: "https://api.themoviedb.org/3",
+        searchedItem: "",
       },
 
       movies: [],
@@ -31,9 +32,8 @@ export default {
   },
   methods: {
     search(item) {
+      this.searchedItem = item;
       if (!item) {
-        this.movies = [];
-        this.series = [];
         return;
       }
 
@@ -66,4 +66,8 @@ export default {
 
 <style lang="scss">
 @import "bootstrap";
+@import "./assets/scss/style.scss";
+#all {
+  background-color: black;
+}
 </style>
